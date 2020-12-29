@@ -16,12 +16,19 @@ Including another URLconf
 # from django.contrib import admin
 from django.urls import include, path
 
+from . import views
+
 
 urlpatterns = [
+    path('', views.api_root),
+
     # login view for the browsable API
-    path('api-auth/', include('rest_framework.urls')),
+    path('api-auth/',
+         include('rest_framework.urls')),
 
     # APIs
-    path('todos/', include('todos.urls')),
-    path('users/', include('users.urls'))
+    path('todos/',
+         include('todos.urls')),
+    path('users/',
+         include('users.urls'))
 ]
