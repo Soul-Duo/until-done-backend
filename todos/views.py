@@ -7,7 +7,7 @@ from .serializers import TodoSerializer
 
 
 @api_view(['GET', 'POST'])
-def todo_list(request):
+def todo_list(request, format=None):
     """
     List all code snippets, or create a new snippet.
     """
@@ -25,7 +25,7 @@ def todo_list(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def todo_detail(request, pk):
+def todo_detail(request, pk, format=None):
     """
     Retrieve, update or delete a code snippet.
     """
