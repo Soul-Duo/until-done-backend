@@ -15,20 +15,23 @@ Including another URLconf
 """
 # from django.contrib import admin
 from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import obtain_auth_token
 
-from . import views
+import todos.views
 
+# Create a router and register our viewsets with it
+router = DefaultRouter()
+router.register(r'todos', todos.views.TodoViewSet, basename='todos')
 
+# The API URLs are determined automatically by the router
 urlpatterns = [
-    path('', views.api_root),
+    path('', include(router.urls)),
 
     # login view for the browsable API
-    path('api-auth/',
-         include('rest_framework.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('users/', include('users.urls')),
 
-    # APIs
-    path('todos/',
-         include('todos.urls')),
-    path('users/',
-         include('users.urls'))
+    # login API
+    path('login/', obtain_auth_token, name='login')
 ]
